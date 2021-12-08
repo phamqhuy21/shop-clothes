@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
+import { Link } from "react-router-dom";
+import { PATH } from "../const/path";
 
 export default function Header() {
   return (
@@ -21,13 +23,13 @@ export default function Header() {
                 <a href="#">My Account</a>
               </li>
               <li>
-                <a href="cart.html">Your Cart</a>
+                <Link to={PATH.CART}>Your Cart</Link>
               </li>
               <li>
-                <a href="checkout.html">Checkout</a>
+                <Link to={PATH.CHECKOUT}>Checkout</Link>
               </li>
               <li>
-                <a href="register.html">Login</a>
+                <Link to={PATH.REGISTER}>Login</Link>
               </li>
             </ul>
           </div>
