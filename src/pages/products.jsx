@@ -3,16 +3,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
-import NavTop from "../components/NavTop";
+import Layout from "../components/Layout";
 
 export default function products() {
   return (
     <>
-      <Header />
-      <div id="wrapper" className="container">
-        <NavTop />
+      <Layout>
         <section className="header_text sub">
           <img
             className="pageBanner"
@@ -336,9 +332,7 @@ export default function products() {
             </div>
           </div>
         </section>
-
-        <Footer />
-      </div>
+      </Layout>
     </>
   );
 }
