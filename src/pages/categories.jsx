@@ -6,20 +6,21 @@
 import BigNumber from "bignumber.js";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getProducts } from "../apis/product.api";
+import { getCategories } from "../apis/category.api";
 import Layout from "../components/Layout";
 import Pagination from "../components/Pagination";
 import { DOMAIN, SCHEME } from "../const/api";
 import { PATH } from "../const/path";
 
-export default function products() {
-  const [products, setProducts] = useState([]);
+export default function categories() {
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const getData = async () => {
     try {
-      let res = await getProducts({ limit: 10, page: 1 });
+      let res = await getCategories({ limit: 10, page: 1 });
+      console.log(res);
       if (res.status === 200) {
-        setProducts(res?.data?.data?.data);
+        setCategories(res?.data?.data?.data);
       }
     } catch (err) {
       console.log(err);
@@ -38,191 +39,36 @@ export default function products() {
           <img
             className="pageBanner"
             src="themes/images/pageBanner.png"
-            alt="New products"
+            alt="Categories"
           />
           <h4>
-            <span>New products</span>
+            <span>Categories</span>
           </h4>
         </section>
         <section className="main-content">
           <div className="row">
             <div className="span9">
               <ul className="thumbnails listing-products">
-                {products?.map((prod) => (
+                {categories?.map((category) => (
                   <li
                     className="span3"
-                    key={prod?._id}
+                    key={category?._id}
                     onClick={() => {
-                      navigate(`${PATH.PRODUCT_DETAIL}?id=${prod?._id}`);
+                      navigate(`${PATH.PRODUCT_DETAIL}?id=${category?._id}`);
                     }}
                   >
-                    <div className="product-box">
+                    <div className="product-box" style={{ minHeight: "150px" }}>
                       <span className="sale_tag" />
-
-                      <img
-                        alt
-                        src={`${SCHEME}://${DOMAIN}/${prod?.productImages[0]}`}
-                      />
-
-                      <br />
-                      <a className="title">{prod?.productName}</a>
-                      <br />
-                      <a className="category">
-                        {prod?.productCategory?.category}
+                      <a href="product_detail.html" style={{ padding: "10px" }}>
+                        <h2>{category?.category}</h2>
                       </a>
-                      <p className="price">
-                        ${new BigNumber(prod?.price).toFormat()}
-                      </p>
+                      <br />
+                      <a href="product_detail.html" className="title">
+                        {category?.description}
+                      </a>
                     </div>
                   </li>
                 ))}
-                {/* <li className="span3">
-                  <div className="product-box">
-                    <span className="sale_tag" />
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/9.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Fusce id molestie massa
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Phasellus consequat
-                    </a>
-                    <p className="price">$341</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/8.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Praesent tempor sem
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Erat gravida
-                    </a>
-                    <p className="price">$28</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <span className="sale_tag" />
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/7.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Wuam ultrices rutrum
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Suspendisse aliquet
-                    </a>
-                    <p className="price">$341</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <span className="sale_tag" />
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/6.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Praesent tempor sem sodales
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Nam imperdiet
-                    </a>
-                    <p className="price">$49</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/1.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Fusce id molestie massa
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Congue diam congue
-                    </a>
-                    <p className="price">$35</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/2.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Tempor sem sodales
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Gravida placerat
-                    </a>
-                    <p className="price">$61</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/3.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Quam ultrices rutrum
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Orci et nisl iaculis
-                    </a>
-                    <p className="price">$233</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/4.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Tempor sem sodales
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Urna nec lectus mollis
-                    </a>
-                    <p className="price">$134</p>
-                  </div>
-                </li>
-                <li className="span3">
-                  <div className="product-box">
-                    <a href="product_detail.html">
-                      <img alt src="themes/images/ladies/5.jpg" />
-                    </a>
-                    <br />
-                    <a href="product_detail.html" className="title">
-                      Luctus quam ultrices
-                    </a>
-                    <br />
-                    <a href="#" className="category">
-                      Suspendisse aliquet
-                    </a>
-                    <p className="price">$261</p>
-                  </div>
-                </li> */}
               </ul>
               <hr />
               <Pagination total={13} pageSize={6} />

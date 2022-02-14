@@ -5,28 +5,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { signup } from "../apis/account.api";
+import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import { PATH } from "../const/path";
+import { login } from "../apis/account.api";
 
-export default function register() {
+export default function index() {
   let navigate = useNavigate();
-  const handleRegister = async (data) => {
+  const handleLogin = async (data) => {
     try {
-      toast.loading("Processing...");
-      let res = await signup(data);
+      toast.loading("Processing login...");
+      let res = await login(data);
       if (res.status === 201 && res?.data?.statusCode === 200) {
         toast.remove();
-        toast.success("Register success");
-        navigate(PATH.LOGIN);
+        toast.success("Login success");
+        localStorage.setItem("jwt_shop", res?.data?.data?.accessToken);
+        navigate(PATH.PRODUCTS);
       } else {
         toast.remove();
         toast.error(res?.data?.message);
       }
     } catch (error) {
-      toast.remove();
-      toast.error("Register failed");
+      toast.error("Login failed");
     }
   };
 
@@ -40,95 +40,66 @@ export default function register() {
             alt="New products"
           />
           <h4>
-            <span>Regsiter</span>
+            <span>Login</span>
           </h4>
         </section>
         <section className="main-content">
           <div className="row">
-            <div className="span7">
+            <div className="span5">
               <h4 className="title">
                 <span className="text">
-                  <strong>Register</strong> Form
+                  <strong>Login</strong> Form
                 </span>
               </h4>
               <form
-                action="#"
                 method="post"
-                className="form-stacked"
                 onSubmit={(e) => {
                   e.preventDefault();
                   let dataReq = {
-                    name: e.target["username"]?.value,
                     email: e.target["email"]?.value,
-                    phone: e.target["phone"]?.value,
                     password: e.target["password"]?.value,
-                    avatar: "user",
-                    role: "Customer",
                   };
-                  handleRegister(dataReq);
+                  handleLogin(dataReq);
                 }}
               >
+                {/* <input type="hidden" name="next" defaultValue="/" /> */}
                 <fieldset>
                   <div className="control-group">
-                    <label className="control-label">Username</label>
+                    <label className="control-label">Email</label>
                     <div className="controls">
                       <input
                         type="text"
-                        placeholder="Enter your username"
-                        name="username"
-                        className="input-xlarge"
-                      />
-                    </div>
-                  </div>
-                  <div className="control-group">
-                    <label className="control-label">Email address:</label>
-                    <div className="controls">
-                      <input
-                        // type="password"
-                        type="email"
                         placeholder="Enter your email"
                         name="email"
+                        id="username"
                         className="input-xlarge"
                       />
                     </div>
                   </div>
                   <div className="control-group">
-                    <label className="control-label">Phone number:</label>
-                    <div className="controls">
-                      <input
-                        type="number"
-                        placeholder="Enter your phone number"
-                        name="phone"
-                        className="input-xlarge"
-                      />
-                    </div>
-                  </div>
-                  <div className="control-group">
-                    <label className="control-label">Password:</label>
+                    <label className="control-label">Password</label>
                     <div className="controls">
                       <input
                         type="password"
                         placeholder="Enter your password"
                         name="password"
+                        id="password"
                         className="input-xlarge"
                       />
                     </div>
                   </div>
                   <div className="control-group">
-                    <p>
-                      Now that we know who you are. I'm not a mistake! In a
-                      comic, you know how you can tell who the arch-villain's
-                      going to be?
-                    </p>
-                  </div>
-                  <hr />
-                  <div className="actions">
                     <input
-                      tabIndex={9}
+                      tabIndex={3}
                       className="btn btn-inverse large"
                       type="submit"
-                      defaultValue="Create your account"
+                      defaultValue="Sign into your account"
                     />
+                    <hr />
+                    <p className="reset">
+                      You don't have an account. Please{" "}
+                      <Link to={PATH.REGISTER}>register here</Link>
+                    </p>
                   </div>
                 </fieldset>
               </form>

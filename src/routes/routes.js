@@ -6,42 +6,42 @@ import Home from "../pages/home";
 import ProductDetail from "../pages/productDetail";
 import Products from "../pages/products";
 import Register from "../pages/register";
+import Categories from "../pages/categories";
+import Login from "../pages/login";
 
 const routes = [
-  {
-    path: PATH.HOME,
-    exact: true,
-    component: <Home />,
-  },
+  { path: PATH.HOME, element: <Home /> },
   {
     path: PATH.CONTACT,
-    exact: true,
-    component: <Contact />,
+    element: <Contact />,
+  },
+  {
+    path: PATH.LOGIN,
+    element: <Login />,
   },
   {
     path: PATH.REGISTER,
-    exact: true,
-    component: <Register />,
+    element: <Register />,
   },
   {
     path: PATH.PRODUCTS,
-    exact: true,
-    component: <Products />,
+    element: <Products />,
   },
   {
     path: PATH.PRODUCT_DETAIL,
-    exact: true,
-    component: <ProductDetail />,
+    element: <ProductDetail />,
+  },
+  {
+    path: PATH.CATEGORIES,
+    element: <Categories />,
   },
   {
     path: PATH.CHECKOUT,
-    exact: true,
-    component: <Checkout />,
+    element: <Checkout />,
   },
   {
     path: PATH.CART,
-    exact: true,
-    component: <Cart />,
+    element: <Cart />,
   },
 ];
 

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { PATH } from "../const/path";
 
 export default function Header() {
+  let token = localStorage.getItem("jwt_shop");
   return (
     <div id="top-bar" className="container">
       <div className="row">
@@ -29,7 +30,19 @@ export default function Header() {
                 <Link to={PATH.CHECKOUT}>Checkout</Link>
               </li>
               <li>
-                <Link to={PATH.REGISTER}>Login</Link>
+                {token ? (
+                  <a
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      localStorage.removeItem("jwt_shop");
+                      window.location.reload();
+                    }}
+                  >
+                    Logout
+                  </a>
+                ) : (
+                  <Link to={PATH.LOGIN}>Login</Link>
+                )}
               </li>
             </ul>
           </div>

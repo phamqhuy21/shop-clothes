@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React from "react";
+import { Link } from "react-router-dom";
+import { PATH } from "../const/path";
 
 export default function NavTop() {
   return (
@@ -11,25 +13,17 @@ export default function NavTop() {
         <nav id="menu" className="pull-right">
           <ul>
             <li>
-              <a href="./products.html">Woman</a>
-              <ul>
-                <li>
-                  <a href="./products.html">Lacinia nibh</a>
-                </li>
-                <li>
-                  <a href="./products.html">Eget molestie</a>
-                </li>
-                <li>
-                  <a href="./products.html">Varius purus</a>
-                </li>
-              </ul>
+              <Link to={PATH.PRODUCTS}>All</Link>
+              {/* <a href="./products.html">All</a> */}
             </li>
             <li>
-              <a href="./products.html">Man</a>
+              <Link to={PATH.PRODUCTS}>Bag</Link>
+              {/* <a href="./products.html">Bag</a> */}
             </li>
             <li>
-              <a href="./products.html">Sport</a>
-              <ul>
+              <Link to={PATH.PRODUCTS}>Shoe</Link>
+              {/* <a href="./products.html">Shoe</a> */}
+              {/* <ul>
                 <li>
                   <a href="./products.html">Gifts and Tech</a>
                 </li>
@@ -39,10 +33,10 @@ export default function NavTop() {
                 <li>
                   <a href="./products.html">Cold Weather</a>
                 </li>
-              </ul>
+              </ul> */}
             </li>
             <li>
-              <a href="./products.html">Hangbag</a>
+              <a href="./products.html">Clothes</a>
             </li>
             <li>
               <a href="./products.html">Best Seller</a>
